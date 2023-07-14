@@ -2,20 +2,10 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { defaultTypeOrmOptions } from './libs/common/typeorm-module.options'
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'admin',
-      password: 'blog!23',
-      database: 'blog',
-      entities: [],
-      synchronize: true
-    })
-  ],
+  imports: [TypeOrmModule.forRoot(defaultTypeOrmOptions)],
   controllers: [AppController],
   providers: [AppService]
 })
