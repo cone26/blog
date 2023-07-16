@@ -7,9 +7,9 @@ import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger'
 export class PostController {
   constructor(private readonly boardService: PostService) {}
 
-  @Get()
-  @ApiOperation({
-    summary: 'get all posts'
-  })
-  async getAllPosts() {}
+  // @Get()
+  // @ApiOperation({
+  //   summary: 'get all posts'
+  // })
+  // async getAllPosts() {}
 }
