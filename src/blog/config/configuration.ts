@@ -4,8 +4,8 @@ import { ConfigModule } from '@nestjs/config'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
-      cache: true
+      isGlobal: true
+      // cache: true
       // envFilePath: '.env'
     })
   ]

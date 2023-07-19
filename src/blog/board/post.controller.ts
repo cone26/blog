@@ -1,7 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common'
-import { PostService } from './post.service'
-import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger'
-import { PostDto } from '../../libs/dao/src/post/dto/post.dto'
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { PostService } from './post.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PostDto } from '../../libs/dao/src/post/dto/post.dto';
+import { CreatePostInDto } from './dto/create-post-in.dto';
+import { UpdatePostInDto } from './dto/update-post-in.dto';
 
 @ApiTags('Posts')
 @Controller('post')
@@ -10,21 +12,41 @@ export class PostController {
 
   @Get()
   @ApiOperation({
-    summary: 'get all posts'
+    summary: 'get all posts',
   })
   async getAllPosts(): Promise<PostDto[]> {
-    const posts = await this.postService.getAllPosts()
+    const posts = await this.postService.getAllPosts();
 
-    return posts
+    return posts;
   }
 
   @Get('/:id')
   @ApiOperation({
-    summary: 'get a post by id'
+    summary: 'get a post by id',
   })
   async getPost(@Param('id') id: number): Promise<PostDto> {
-    const post = await this.postService.getPost(+id)
+    const post = await this.postService.getPost(+id);
 
-    return
+    return post;
+  }
+
+  @Get('/')
+  async getPostByCategory(
+    @Query('category') category: string,
+  ): Promise<PostDto[]> {
+    return await this.postService.getPostByCategory(category);
+  }
+
+  @Post('/')
+  async createPost(@Body() createPostInDto: CreatePostInDto): Promise<PostDto> {
+    return await this.postService.createPost(createPostInDto);
+  }
+
+  @Put('/:id')
+  async updatePost(
+    @Param('id') id: number,
+    @Body() updatePostInDto: UpdatePostInDto,
+  ): Promise<PostDto> {
+    return await this.postService.updatePost(id, updatePostInDto);
   }
 }

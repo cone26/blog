@@ -1,14 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { BaseTimeEntity } from '../base-time.entity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseTimeEntity } from '../base-time.entity';
 
 @Entity('post')
-export class Post extends BaseTimeEntity {
+export class PostEntity extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  title: string
+  title: string;
 
   @Column()
-  content: string
+  content: string;
+
+  @Column()
+  category: string;
+
+  constructor(partial?: Partial<PostEntity>) {
+    super();
+    Object.assign(this, partial);
+  }
 }
