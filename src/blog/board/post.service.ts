@@ -58,4 +58,17 @@ export class PostService {
 
     return updatedPost;
   }
+
+  async removePost(id: number): Promise<void> {
+    const post = await this.postRepository.findById(id);
+
+    if (!post) {
+      throw new InternalServerErrorException(
+        InternalErrorCode.POST_NOT_FOUND,
+        'POST_NOT_FOUND',
+      );
+    }
+
+    await this.postRepository.softDelete(id);
+  }
 }

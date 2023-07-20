@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PostDto } from '../../libs/dao/src/post/dto/post.dto';
@@ -48,5 +57,10 @@ export class PostController {
     @Body() updatePostInDto: UpdatePostInDto,
   ): Promise<PostDto> {
     return await this.postService.updatePost(id, updatePostInDto);
+  }
+
+  @Delete('/:id')
+  async removePost(@Param('id') id: number): Promise<void> {
+    await this.postService.removePost(id);
   }
 }
