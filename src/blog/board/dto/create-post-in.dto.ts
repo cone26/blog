@@ -5,8 +5,5 @@ export class CreatePostInDto {
   title: string;
 
   @ApiProperty()
-  content: string;
-
-  @ApiProperty()
-  category: string;
+  body: string;
 }

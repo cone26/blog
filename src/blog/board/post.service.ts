@@ -1,50 +1,50 @@
 import { Injectable, InternalServerErrorException, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PostRepository } from '../../libs/dao/src/post/post.repository';
+import { ContentRepository } from '../../libs/dao/src/post/content.repository';
 import * as process from 'process';
-import { PostDto } from '../../libs/dao/src/post/dto/post.dto';
+import { ContentDto } from '../../libs/dao/src/post/dto/content.dto';
 import { CreatePostInDto } from './dto/create-post-in.dto';
-import { PostEntity } from '../../libs/dao/src/post/post.entity';
+import { Content } from '../../libs/dao/src/post/content.entity';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
 import { InternalErrorCode } from '../../libs/common/constants/internal-error-code.constants';
 
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(PostRepository, process.env.DB_NAME)
-    private readonly postRepository: PostRepository,
+    @InjectRepository(ContentRepository, process.env.DB_NAME)
+    private readonly postRepository: ContentRepository,
   ) {}
 
-  async getAllPosts(): Promise<PostDto[]> {
+  async getAllPosts(): Promise<ContentDto[]> {
     const result = await this.postRepository.find();
 
-    return result;
+    return ContentDto.fromEntity(result);
   }
 
-  async getPost(id: number): Promise<PostDto> {
+  async getPost(id: number): Promise<ContentDto> {
     const result = await this.postRepository.findById(id);
 
-    return result;
+    return ContentDto.fromEntity(result);
   }
 
-  async getPostByCategory(category: string): Promise<PostDto[]> {
+  async getPostByCategory(category: string): Promise<ContentDto[]> {
     const result = await this.postRepository.findByCategory(category);
 
-    return result;
+    return ContentDto.fromEntity(result);
   }
 
-  async createPost(createPostInDto: CreatePostInDto): Promise<PostDto> {
+  async createPost(createPostInDto: CreatePostInDto): Promise<ContentDto> {
     const post = await this.postRepository.save(
-      new PostEntity({ ...createPostInDto }),
+      new Content({ ...createPostInDto }),
     );
 
-    return post;
+    return ContentDto.fromEntity(post);
   }
 
   async updatePost(
     id: number,
     updatePostInDto: UpdatePostInDto,
-  ): Promise<PostDto> {
+  ): Promise<ContentDto> {
     const findPost = await this.postRepository.findById(id);
 
     if (!findPost) {
@@ -56,7 +56,7 @@ export class PostService {
     await this.postRepository.updateById(id, updatePostInDto);
     const updatedPost = await this.postRepository.findById(id);
 
-    return updatedPost;
+    return ContentDto.fromEntity(updatedPost);
   }
 
   async removePost(id: number): Promise<void> {
