@@ -1,12 +1,11 @@
 import { Injectable, InternalServerErrorException, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ContentRepository } from '../../libs/dao/src/post/content.repository';
-import * as process from 'process';
 import { ContentDto } from '../../libs/dao/src/post/dto/content.dto';
 import { CreatePostInDto } from './dto/create-post-in.dto';
 import { Content } from '../../libs/dao/src/post/content.entity';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
-import { InternalErrorCode } from '../../libs/common/constants/internal-error-code.constants';
+import { InternalErrorCode } from '../../libs/common/src/constants/internal-error-code.constants';
 
 @Injectable()
 export class PostService {

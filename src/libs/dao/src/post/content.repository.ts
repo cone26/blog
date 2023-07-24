@@ -1,7 +1,7 @@
-import { EntityRepository } from '../../../common/database/typeorm/typeorm-ex.decorator';
+import { EntityRepository } from '../../../common/src/database/typeorm/typeorm-ex.decorator';
 import { Repository, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { QueryMethodUpdateOptions } from '../../../common/database/typeorm/typeorm-ex.module';
+import { QueryMethodUpdateOptions } from '../../../common/src/database/typeorm/typeorm-ex.module';
 import { Content } from './content.entity';
 
 @EntityRepository(Content)

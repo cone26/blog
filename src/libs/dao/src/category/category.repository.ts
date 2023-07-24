@@ -1,4 +1,4 @@
-import { EntityRepository } from '../../../common/database/typeorm/typeorm-ex.decorator';
+import { EntityRepository } from '../../../common/src/database/typeorm/typeorm-ex.decorator';
 import { Category } from './category.entity';
 import { Repository } from 'typeorm';
 

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmExModule } from '../../../common/database/typeorm/typeorm-ex.module';
+import { TypeOrmExModule } from '../../../common/src/database/typeorm/typeorm-ex.module';
 import { ContentRepository } from './content.repository';
 
 @Module({
