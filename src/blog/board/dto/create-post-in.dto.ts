@@ -6,4 +6,7 @@ export class CreatePostInDto {
 
   @ApiProperty()
   body: string;
+
+  @ApiProperty()
+  category: string;
 }

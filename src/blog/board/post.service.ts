@@ -6,18 +6,21 @@ import { CreatePostInDto } from './dto/create-post-in.dto';
 import { Content } from '../../libs/dao/src/post/content.entity';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
 import { InternalErrorCode } from '../../libs/common/src/constants/internal-error-code.constants';
+import { CategoryRepository } from '../../libs/dao/src/category/category.repository';
 
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(ContentRepository, process.env.DB_NAME)
+    @InjectRepository(ContentRepository, 'blog')
     private readonly postRepository: ContentRepository,
+    @InjectRepository(CategoryRepository, 'blog')
+    private readonly categoryRepository: CategoryRepository,
   ) {}
 
   async getAllPosts(): Promise<ContentDto[]> {
-    const result = await this.postRepository.find();
+    const results = await this.postRepository.find();
 
-    return ContentDto.fromEntity(result);
+    return results.map((result) => ContentDto.fromEntity(result));
   }
 
   async getPost(id: number): Promise<ContentDto> {
@@ -33,8 +36,14 @@ export class PostService {
   }
 
   async createPost(createPostInDto: CreatePostInDto): Promise<ContentDto> {
+    const category = await this.categoryRepository.findById(
+      createPostInDto.category,
+    );
     const post = await this.postRepository.save(
-      new Content({ ...createPostInDto }),
+      new Content({
+        ...createPostInDto,
+        category: await category,
+      }),
     );
 
     return ContentDto.fromEntity(post);

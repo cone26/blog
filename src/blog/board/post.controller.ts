@@ -3,13 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
   Query,
+  Res,
 } from '@nestjs/common';
 import { PostService } from './post.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ContentDto } from '../../libs/dao/src/post/dto/content.dto';
 import { CreatePostInDto } from './dto/create-post-in.dto';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
@@ -19,7 +21,7 @@ import { UpdatePostInDto } from './dto/update-post-in.dto';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @Get()
+  @Get('/')
   @ApiOperation({
     summary: 'get all posts',
   })
@@ -39,7 +41,7 @@ export class PostController {
     return post;
   }
 
-  @Get('/')
+  @Get('/find')
   async getPostByCategory(
     @Query('category') category: string,
   ): Promise<ContentDto[]> {
