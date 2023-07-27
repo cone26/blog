@@ -15,8 +15,6 @@ export class Category extends BaseTimeEntity {
 
   constructor(partial?: Partial<Category>) {
     super();
-
-    // noinspection TypeScriptValidateTypes
     Object.assign(this, partial);
   }
 }

@@ -7,6 +7,7 @@ import { Content } from '../../libs/dao/src/post/content.entity';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
 import { InternalErrorCode } from '../../libs/common/src/constants/internal-error-code.constants';
 import { CategoryRepository } from '../../libs/dao/src/category/category.repository';
+import { async } from 'rxjs';
 
 @Injectable()
 export class PostService {
@@ -36,7 +37,7 @@ export class PostService {
   }
 
   async createPost(createPostInDto: CreatePostInDto): Promise<ContentDto> {
-    const category = await this.categoryRepository.findById(
+    const category = await this.categoryRepository.findByTitle(
       createPostInDto.category,
     );
     const post = await this.postRepository.save(
@@ -61,7 +62,14 @@ export class PostService {
         'POST_NOT_FOUND',
       );
     }
-    await this.postRepository.updateById(id, updatePostInDto);
+
+    const category = await this.categoryRepository.findByTitle(
+      updatePostInDto.category,
+    );
+    await this.postRepository.updateById(id, {
+      ...updatePostInDto,
+      category: await category,
+    });
     const updatedPost = await this.postRepository.findById(id);
 
     return ContentDto.fromEntity(updatedPost);

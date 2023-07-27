@@ -26,9 +26,7 @@ export class PostController {
     summary: 'get all posts',
   })
   async getAllPosts(): Promise<ContentDto[]> {
-    const posts = await this.postService.getAllPosts();
-
-    return posts;
+    return await this.postService.getAllPosts();
   }
 
   @Get('/:id')
@@ -36,9 +34,7 @@ export class PostController {
     summary: 'get a post by id',
   })
   async getPost(@Param('id') id: number): Promise<ContentDto> {
-    const post = await this.postService.getPost(+id);
-
-    return post;
+    return await this.postService.getPost(+id);
   }
 
   @Get('/find')
