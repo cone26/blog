@@ -38,6 +38,9 @@ export class PostController {
   }
 
   @Get('/find')
+  @ApiOperation({
+    summary: 'get all posts',
+  })
   async getPostByCategory(
     @Query('category') category: string,
   ): Promise<ContentDto[]> {
@@ -45,6 +48,9 @@ export class PostController {
   }
 
   @Post('/')
+  @ApiOperation({
+    summary: 'create a post',
+  })
   async createPost(
     @Body() createPostInDto: CreatePostInDto,
   ): Promise<ContentDto> {
@@ -52,6 +58,9 @@ export class PostController {
   }
 
   @Put('/:id')
+  @ApiOperation({
+    summary: 'update a post',
+  })
   async updatePost(
     @Param('id') id: number,
     @Body() updatePostInDto: UpdatePostInDto,
@@ -60,6 +69,9 @@ export class PostController {
   }
 
   @Delete('/:id')
+  @ApiOperation({
+    summary: 'delete a post',
+  })
   async removePost(@Param('id') id: number): Promise<void> {
     await this.postService.removePost(id);
   }

@@ -17,7 +17,7 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
   // process.env.DB_NAME,
   database: 'blog',
   // process.env.DB_NAME,
-  entities: ['dist/libs/dao/api/**/*.entity.{ts,js}'],
+  entities: ['dist/blog/libs/dao/src/**/*.entity.{ts,js}'],
   namingStrategy: new SnakeNamingStrategy(),
   // charset: 'utf8m4',
   timezone: 'Z',
