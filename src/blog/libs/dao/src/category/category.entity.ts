@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseTimeEntity } from '../base-time.entity';
-import { Content } from '../post/content.entity';
+import { Content } from '../content/content.entity';
 
 @Entity('category')
 export class Category extends BaseTimeEntity {
