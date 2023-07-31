@@ -7,8 +7,8 @@ export const defaultTypeOrmOptions: DataSourceOptions = {
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER_NAME,
   password: process.env.DB_USER_PW,
-  synchronize: true,
-  // process.env.DB_SYNCHRONIZE && JSON.parse(process.env.DB_SYNCHRONIZE),
+  synchronize:
+    process.env.DB_SYNCHRONIZE && JSON.parse(process.env.DB_SYNCHRONIZE),
   name: process.env.DB_NAME,
   database: process.env.DB_NAME,
   entities: ['dist/blog/libs/dao/src/**/*.entity.{ts,js}'],
