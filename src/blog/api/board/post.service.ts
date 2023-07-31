@@ -1,20 +1,19 @@
 import { Injectable, InternalServerErrorException, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ContentRepository } from '../../libs/dao/src/post/content.repository';
-import { ContentDto } from '../../libs/dao/src/post/dto/content.dto';
+import { ContentRepository } from '../../libs/dao/src/content/content.repository';
+import { ContentDto } from '../../libs/dao/src/content/dto/content.dto';
 import { CreatePostInDto } from './dto/create-post-in.dto';
-import { Content } from '../../libs/dao/src/post/content.entity';
+import { Content } from '../../libs/dao/src/content/content.entity';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
 import { InternalErrorCode } from '../../libs/common/src/constants/internal-error-code.constants';
 import { CategoryRepository } from '../../libs/dao/src/category/category.repository';
-import { async } from 'rxjs';
 
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(ContentRepository, 'blog')
+    @InjectRepository(ContentRepository, process.env.DB_NAME)
     private readonly postRepository: ContentRepository,
-    @InjectRepository(CategoryRepository, 'blog')
+    @InjectRepository(CategoryRepository, process.env.DB_NAME)
     private readonly categoryRepository: CategoryRepository,
   ) {}
 

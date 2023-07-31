@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ContentDto } from '../../libs/dao/src/post/dto/content.dto';
+import { ContentDto } from '../../libs/dao/src/content/dto/content.dto';
 import { CreatePostInDto } from './dto/create-post-in.dto';
 import { UpdatePostInDto } from './dto/update-post-in.dto';
 
@@ -31,7 +31,7 @@ export class PostController {
 
   @Get('/:id')
   @ApiOperation({
-    summary: 'get a post by id',
+    summary: 'get a content by id',
   })
   async getPost(@Param('id') id: number): Promise<ContentDto> {
     return await this.postService.getPost(+id);
@@ -49,7 +49,7 @@ export class PostController {
 
   @Post('/')
   @ApiOperation({
-    summary: 'create a post',
+    summary: 'create a content',
   })
   async createPost(
     @Body() createPostInDto: CreatePostInDto,
@@ -59,7 +59,7 @@ export class PostController {
 
   @Put('/:id')
   @ApiOperation({
-    summary: 'update a post',
+    summary: 'update a content',
   })
   async updatePost(
     @Param('id') id: number,
@@ -70,7 +70,7 @@ export class PostController {
 
   @Delete('/:id')
   @ApiOperation({
-    summary: 'delete a post',
+    summary: 'delete a content',
   })
   async removePost(@Param('id') id: number): Promise<void> {
     await this.postService.removePost(id);
