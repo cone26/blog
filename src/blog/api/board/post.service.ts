@@ -30,7 +30,9 @@ export class PostService {
   }
 
   async getPostByCategory(category: string): Promise<ContentDto[]> {
-    const result = await this.postRepository.findByCategory(category);
+    const findCategory = await this.categoryRepository.findByTitle(category);
+    console.log(findCategory);
+    const result = await this.postRepository.findByCategory(findCategory.id);
 
     return ContentDto.fromEntity(result);
   }

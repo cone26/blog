@@ -39,7 +39,7 @@ export class PostController {
 
   @Get('/find')
   @ApiOperation({
-    summary: 'get all posts',
+    summary: 'get posts by category',
   })
   async getPostByCategory(
     @Query('category') category: string,
