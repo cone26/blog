@@ -28,15 +28,6 @@ export class PostController {
   async getAllPosts(): Promise<ContentDto[]> {
     return await this.postService.getAllPosts();
   }
-
-  @Get('/:id')
-  @ApiOperation({
-    summary: 'get a content by id',
-  })
-  async getPost(@Param('id') id: number): Promise<ContentDto> {
-    return await this.postService.getPost(+id);
-  }
-
   @Get('/find')
   @ApiOperation({
     summary: 'get posts by category',
@@ -44,7 +35,16 @@ export class PostController {
   async getPostByCategory(
     @Query('category') category: string,
   ): Promise<ContentDto[]> {
-    return await this.postService.getPostByCategory(category);
+    // router 위치 -> get by id api보다 먼저 위치 해야 함
+    const test = await this.postService.getPostByCategory(category);
+    return test;
+  }
+  @Get('/:id')
+  @ApiOperation({
+    summary: 'get a content by id',
+  })
+  async getPost(@Param('id') id: number): Promise<ContentDto> {
+    return await this.postService.getPost(+id);
   }
 
   @Post('/')
