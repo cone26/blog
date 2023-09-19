@@ -12,9 +12,9 @@ export class ContentRepository extends Repository<Content> {
       .getOne();
   }
 
-  async findByCategory(category: string): Promise<Content[]> {
+  async findByCategory(category: number): Promise<Content[]> {
     return await this.createQueryBuilder('content')
-      .where('content.category=:category', { category: category })
+      .where('content.category_id=:category', { category: category })
       .getMany();
   }
 

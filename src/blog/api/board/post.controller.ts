@@ -36,8 +36,8 @@ export class PostController {
     @Query('category') category: string,
   ): Promise<ContentDto[]> {
     // router 위치 -> get by id api보다 먼저 위치 해야 함
-    const test = await this.postService.getPostByCategory(category);
-    return test;
+
+    return await this.postService.getPostByCategory(category);
   }
   @Get('/:id')
   @ApiOperation({
