@@ -16,7 +16,7 @@ export class Content extends BaseTimeEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column('longtext')
   body: string;
 
   @ManyToOne(() => Category, (category) => category.contents)
